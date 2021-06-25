@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
+import 'package:invert_colors/invert_colors.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   // SystemChrome.setPreferredOrientations(
@@ -58,21 +59,27 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
-                color: (finalColor == Colors.white) ? Colors.black : finalColor,
+                color: ((_redSlider >= 235 && _redSlider <= 255) &&
+                        (_blueSlider >= 235 && _blueSlider <= 255) &&
+                        (_greenSlider >= 235 && _greenSlider <= 255))
+                    ? Colors.black
+                    : (finalColor),
               ),
-            )
+            ),
           ],
         ),
       ),
       actions: <Widget>[
         ElevatedButton(
             onPressed: Navigator.of(context).pop,
-            child: Text('Okay'),
+            child: InvertColors(
+                child: Text(
+              'Okay',
+              style: TextStyle(color: finalColor),
+            )),
             style: ElevatedButton.styleFrom(
               elevation: 10,
               primary: (finalColor),
-              onPrimary:
-                  (finalColor == Colors.white) ? Colors.black : Colors.white,
             ))
       ],
     );
@@ -84,10 +91,10 @@ class _MyHomePageState extends State<MyHomePage> {
         _redSlider.toInt(), _greenSlider.toInt(), _blueSlider.toInt(), 1);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: TextStyle(
-            color: Colors.black
+        title: InvertColors(
+          child: Text(
+            widget.title,
+            style: TextStyle(color: finalColor),
           ),
         ),
         backgroundColor: finalColor,
@@ -97,32 +104,38 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(50),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text(
-                    _redSlider.toInt().toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.red,
+              padding: EdgeInsets.fromLTRB(45, 45, 45, 30),
+              child: Container(
+                width: 200,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      _redSlider.toInt().toString(),
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
                     ),
-                  ),
-                  Text(
-                    _greenSlider.toInt().toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.green,
+                    Text(
+                      _greenSlider.toInt().toString(),
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
                     ),
-                  ),
-                  Text(
-                    _blueSlider.toInt().toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue,
+                    Text(
+                      _blueSlider.toInt().toString(),
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -134,14 +147,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       context: context,
                       builder: (BuildContext ctx) => _popupHEX(ctx));
                 },
-                child: Text(
-                  'Get HEX',
-                  style: TextStyle(fontSize: 20),
+                child: InvertColors(
+                  child: Text(
+                    'Get HEX',
+                    style: TextStyle(fontSize: 20, color: finalColor),
+                  ),
                 ),
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
                   primary: finalColor,
-                  onPrimary: (finalColor == Colors.white) ? Colors.black : Colors.white,
+                  onPrimary: (finalColor == Colors.white)
+                      ? Colors.black
+                      : Colors.white,
                 ),
               ),
             ),
@@ -152,17 +169,19 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 50,
               width: 200,
               child: ElevatedButton(
-                onPressed: () {}, 
-                child: Text(
-                  'Set HEX',
-                  style: TextStyle(
-                    fontSize: 20
+                onPressed: () {},
+                child: InvertColors(
+                  child: Text(
+                    'Set HEX',
+                    style: TextStyle(fontSize: 20, color: finalColor),
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
                   primary: finalColor,
-                  onPrimary: (finalColor == Colors.white) ? Colors.black : Colors.white,
+                  onPrimary: (finalColor == Colors.white)
+                      ? Colors.black
+                      : Colors.white,
                 ),
               ),
             ),
@@ -262,9 +281,6 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 30,
             ),
-            // Text('Red Slider value ${_redSlider.toInt()}'),
-            // Text('Blue Slider value ${_blueSlider.toInt()}'),
-            // Text('Green Slider value ${_greenSlider.toInt()}'),
             Container(
               height: 200,
               width: 200,
@@ -272,9 +288,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: finalColor,
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: (_redSlider == 255 &&
-                          _blueSlider == 255 &&
-                          _greenSlider == 255)
+                  color: ((_redSlider >= 235 && _redSlider <= 255) &&
+                          (_blueSlider >= 235 && _blueSlider <= 255) &&
+                          (_greenSlider >= 255 && _greenSlider <= 255))
                       ? Colors.black
                       : finalColor,
                   width: 2.0,
