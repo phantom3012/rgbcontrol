@@ -88,10 +88,36 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 10,
+            Padding(
+              padding: EdgeInsets.all(50),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    _redSlider.toInt().toString(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.red,
+                    ),
+                  ),
+                  Text(
+                    _greenSlider.toInt().toString(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    _blueSlider.toInt().toString(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: 50,
@@ -189,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   min: 0,
                   max: 255,
                   divisions: 255,
-                  label: _blueSlider.round().toString(),
+                  label: _greenSlider.round().toString(),
                   onChanged: (double value) {
                     setState(() {
                       _greenSlider = value;
@@ -220,7 +246,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   min: 0,
                   max: 255,
                   divisions: 255,
-                  label: _greenSlider.round().toString(),
+                  label: _blueSlider.round().toString(),
                   onChanged: (double value) {
                     setState(() {
                       _blueSlider = value;
