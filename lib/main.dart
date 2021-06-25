@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'RGB Control',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -84,7 +84,13 @@ class _MyHomePageState extends State<MyHomePage> {
         _redSlider.toInt(), _greenSlider.toInt(), _blueSlider.toInt(), 1);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: TextStyle(
+            color: Colors.black
+          ),
+        ),
+        backgroundColor: finalColor,
       ),
       body: Center(
         child: Column(
