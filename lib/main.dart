@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invert_colors/invert_colors.dart';
-import 'package:flutter/services.dart';
+import 'package:string_validator/string_validator.dart';
+// import 'package:flutter/services.dart';
 
 void main() {
   // SystemChrome.setPreferredOrientations(
@@ -35,11 +36,14 @@ class _MyHomePageState extends State<MyHomePage> {
   double _blueSlider = 0;
   double _greenSlider = 0;
 
+  // ignore: non_constant_identifier_names
+  String HEXinput = "000000";
+
   String hexOfRGB(Color c) {
     return '#${c.value.toRadixString(16).substring(2)}';
   }
 
-  Widget _popupHEX(BuildContext context) {
+  Widget _getHEX(BuildContext context) {
     Color finalColor = Color.fromRGBO(
         _redSlider.toInt(), _greenSlider.toInt(), _blueSlider.toInt(), 1);
     return AlertDialog(
@@ -85,10 +89,62 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _setHEX(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+    return AlertDialog(
+      title: Text(
+        'Enter HEX code (ignore #)',
+        textAlign: TextAlign.center,
+      ),
+      content: Container(
+        height: 200,
+        width: 200,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    validator: (value) {
+                      if (!isHexColor(value.toString())) {
+                        return 'Enter valid HEX!';
+                      }
+                    },
+                    onSaved: (value) {
+                      setState(() {
+                        HEXinput = value.toString().toLowerCase();
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        final form = _formKey.currentState;
+                        if (_formKey.currentState!.validate()) {
+                          form!.save();
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: Text('Ok'))
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Color finalColor = Color.fromRGBO(
         _redSlider.toInt(), _greenSlider.toInt(), _blueSlider.toInt(), 1);
+    print("HEX:" + HEXinput);
     return Scaffold(
       appBar: AppBar(
         title: InvertColors(
@@ -145,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   showDialog(
                       context: context,
-                      builder: (BuildContext ctx) => _popupHEX(ctx));
+                      builder: (BuildContext ctx) => _getHEX(ctx));
                 },
                 child: InvertColors(
                   child: Text(
@@ -169,7 +225,11 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 50,
               width: 200,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext ctx) => _setHEX(ctx));
+                },
                 child: InvertColors(
                   child: Text(
                     'Set HEX',
