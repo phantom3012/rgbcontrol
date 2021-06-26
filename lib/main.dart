@@ -76,6 +76,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       actions: <Widget>[
         ElevatedButton(
+          onPressed: () {
+            Clipboard.setData(ClipboardData(text: hexOfRGB(finalColor)));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Copied to clipboard!')));
+            Navigator.pop(context);
+          },
+          child: InvertColors(
+              child: Text(
+            'Copy to clipboard',
+            style: TextStyle(color: finalColor),
+          )),
+          style: ElevatedButton.styleFrom(
+            elevation: 10,
+            primary: finalColor,
+          ),
+        ),
+        ElevatedButton(
             onPressed: Navigator.of(context).pop,
             child: InvertColors(
                 child: Text(
@@ -85,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
             style: ElevatedButton.styleFrom(
               elevation: 10,
               primary: (finalColor),
-            ))
+            )),
       ],
     );
   }
@@ -165,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: finalColor,
       ),
       body: SingleChildScrollView(
-              child: Center(
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -231,31 +248,31 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 height: 10,
               ),
-              if(MediaQuery.of(context).orientation!=Orientation.landscape)
-              SizedBox(
-                height: 50,
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext ctx) => _setHEX(ctx));
-                  },
-                  child: InvertColors(
-                    child: Text(
-                      'Set HEX',
-                      style: TextStyle(fontSize: 20, color: finalColor),
+              if (MediaQuery.of(context).orientation != Orientation.landscape)
+                SizedBox(
+                  height: 50,
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext ctx) => _setHEX(ctx));
+                    },
+                    child: InvertColors(
+                      child: Text(
+                        'Set HEX',
+                        style: TextStyle(fontSize: 20, color: finalColor),
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 10,
+                      primary: finalColor,
+                      onPrimary: (finalColor == Colors.white)
+                          ? Colors.black
+                          : Colors.white,
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 10,
-                    primary: finalColor,
-                    onPrimary: (finalColor == Colors.white)
-                        ? Colors.black
-                        : Colors.white,
-                  ),
                 ),
-              ),
               SizedBox(
                 height: 50,
               ),
