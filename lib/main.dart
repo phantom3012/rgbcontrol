@@ -134,6 +134,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     onSaved: (value) {
                       setState(() {
                         HEXinput = value.toString().toLowerCase();
+                        if (HEXinput.substring(0, 1) == "#") {
+                          HEXinput = HEXinput.substring(1);
+                        }
                       });
                     },
                   ),
@@ -187,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.fromLTRB(45, 45, 45, 30),
+                padding: EdgeInsets.fromLTRB(45, 20, 45, 30),
                 child: Container(
                   width: 200,
                   child: Row(
@@ -220,6 +223,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 50,
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: InvertColors(
+                      child: Text(
+                    'Reset',
+                    style: TextStyle(fontSize: 20, color: finalColor),
+                  )),
+                  style: ElevatedButton.styleFrom(
+                      elevation: 10, primary: finalColor),
+                ),
+              ),
+              SizedBox(
+                height: 10,
               ),
               SizedBox(
                 height: 50,
