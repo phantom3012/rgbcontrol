@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invert_colors/invert_colors.dart';
 import 'package:string_validator/string_validator.dart';
-// import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   // SystemChrome.setPreferredOrientations(
@@ -164,212 +164,215 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         backgroundColor: finalColor,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(45, 45, 45, 30),
-              child: Container(
+      body: SingleChildScrollView(
+              child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(45, 45, 45, 30),
+                child: Container(
+                  width: 200,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        _redSlider.toInt().toString(),
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      ),
+                      Text(
+                        _greenSlider.toInt().toString(),
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+                      Text(
+                        _blueSlider.toInt().toString(),
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 50,
                 width: 200,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      _redSlider.toInt().toString(),
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                      ),
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext ctx) => _getHEX(ctx));
+                  },
+                  child: InvertColors(
+                    child: Text(
+                      'Get HEX',
+                      style: TextStyle(fontSize: 20, color: finalColor),
                     ),
-                    Text(
-                      _greenSlider.toInt().toString(),
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
-                    ),
-                    Text(
-                      _blueSlider.toInt().toString(),
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 50,
-              width: 200,
-              child: ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext ctx) => _getHEX(ctx));
-                },
-                child: InvertColors(
-                  child: Text(
-                    'Get HEX',
-                    style: TextStyle(fontSize: 20, color: finalColor),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 10,
+                    primary: finalColor,
+                    onPrimary: (finalColor == Colors.white)
+                        ? Colors.black
+                        : Colors.white,
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  elevation: 10,
-                  primary: finalColor,
-                  onPrimary: (finalColor == Colors.white)
-                      ? Colors.black
-                      : Colors.white,
-                ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 50,
-              width: 200,
-              child: ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext ctx) => _setHEX(ctx));
-                },
-                child: InvertColors(
-                  child: Text(
-                    'Set HEX',
-                    style: TextStyle(fontSize: 20, color: finalColor),
+              SizedBox(
+                height: 10,
+              ),
+              if(MediaQuery.of(context).orientation!=Orientation.landscape)
+              SizedBox(
+                height: 50,
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext ctx) => _setHEX(ctx));
+                  },
+                  child: InvertColors(
+                    child: Text(
+                      'Set HEX',
+                      style: TextStyle(fontSize: 20, color: finalColor),
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 10,
+                    primary: finalColor,
+                    onPrimary: (finalColor == Colors.white)
+                        ? Colors.black
+                        : Colors.white,
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  elevation: 10,
-                  primary: finalColor,
-                  onPrimary: (finalColor == Colors.white)
-                      ? Colors.black
-                      : Colors.white,
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Text(
+                'Red',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 30,
                 ),
               ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Text(
-              'Red',
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 30,
+              SizedBox(
+                height: 5,
               ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            SliderTheme(
-              data: SliderThemeData(
-                thumbColor: Colors.red,
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
-                activeTrackColor: Colors.red,
+              SliderTheme(
+                data: SliderThemeData(
+                  thumbColor: Colors.red,
+                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
+                  activeTrackColor: Colors.red,
+                ),
+                child: Slider(
+                    value: _redSlider,
+                    min: 0,
+                    max: 255,
+                    divisions: 255,
+                    label: _redSlider.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        _redSlider = value;
+                        flag = 0;
+                      });
+                    }),
               ),
-              child: Slider(
-                  value: _redSlider,
-                  min: 0,
-                  max: 255,
-                  divisions: 255,
-                  label: _redSlider.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _redSlider = value;
-                      flag = 0;
-                    });
-                  }),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Green',
-              style: TextStyle(
-                color: Colors.green,
-                fontSize: 30,
+              SizedBox(
+                height: 10,
               ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            SliderTheme(
-              data: SliderThemeData(
-                thumbColor: Colors.green,
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
-                activeTrackColor: Colors.green,
-              ),
-              child: Slider(
-                  value: _greenSlider,
-                  min: 0,
-                  max: 255,
-                  divisions: 255,
-                  label: _greenSlider.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _greenSlider = value;
-                      flag = 0;
-                    });
-                  }),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Blue',
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 30,
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            SliderTheme(
-              data: SliderThemeData(
-                thumbColor: Colors.blue,
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
-                activeTrackColor: Colors.blue,
-              ),
-              child: Slider(
-                  value: _blueSlider,
-                  min: 0,
-                  max: 255,
-                  divisions: 255,
-                  label: _blueSlider.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _blueSlider = value;
-                      flag = 0;
-                    });
-                  }),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              height: 200,
-              width: 200,
-              decoration: BoxDecoration(
-                color: finalColor,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: ((_redSlider >= 235 && _redSlider <= 255) &&
-                          (_blueSlider >= 235 && _blueSlider <= 255) &&
-                          (_greenSlider >= 255 && _greenSlider <= 255))
-                      ? Colors.black
-                      : finalColor,
-                  width: 2.0,
+              Text(
+                'Green',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 30,
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: 5,
+              ),
+              SliderTheme(
+                data: SliderThemeData(
+                  thumbColor: Colors.green,
+                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
+                  activeTrackColor: Colors.green,
+                ),
+                child: Slider(
+                    value: _greenSlider,
+                    min: 0,
+                    max: 255,
+                    divisions: 255,
+                    label: _greenSlider.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        _greenSlider = value;
+                        flag = 0;
+                      });
+                    }),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Blue',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 30,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              SliderTheme(
+                data: SliderThemeData(
+                  thumbColor: Colors.blue,
+                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
+                  activeTrackColor: Colors.blue,
+                ),
+                child: Slider(
+                    value: _blueSlider,
+                    min: 0,
+                    max: 255,
+                    divisions: 255,
+                    label: _blueSlider.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        _blueSlider = value;
+                        flag = 0;
+                      });
+                    }),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                height: 200,
+                width: 200,
+                decoration: BoxDecoration(
+                  color: finalColor,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: ((_redSlider >= 235 && _redSlider <= 255) &&
+                            (_blueSlider >= 235 && _blueSlider <= 255) &&
+                            (_greenSlider >= 255 && _greenSlider <= 255))
+                        ? Colors.black
+                        : finalColor,
+                    width: 2.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
