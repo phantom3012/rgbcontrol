@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:invert_colors/invert_colors.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // ignore: non_constant_identifier_names
   String HEXinput = "000000";
+  Color pickedcolor = Color(0x000000);
 
   String hexOfRGB(Color c) {
     return '#${c.value.toRadixString(16).substring(2)}';
@@ -159,6 +161,42 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _pickColor(BuildContext context) {
+    Color finalColor = Color.fromRGBO(
+        _redSlider.toInt(), _greenSlider.toInt(), _blueSlider.toInt(), 1);
+    Color pickerColor = finalColor;
+    return AlertDialog(
+      title: Text('Pick a color!'),
+      content: SingleChildScrollView(
+        child: ColorPicker(
+          pickerColor: pickerColor,
+          onColorChanged: (value) {
+            setState(() {
+              pickerColor = value;
+            });
+          },
+          showLabel: true,
+          pickerAreaHeightPercent: 0.8,
+        ),
+      ),
+      actions: <Widget>[
+        ElevatedButton(
+            onPressed: () {
+              setState(() {
+                pickedcolor = pickerColor;
+                // print("picked"+hexOfRGB(pickedcolor));
+                String hexin = hexOfRGB(pickedcolor);
+                HEXinput = hexin.substring(1);
+                print('picked' + HEXinput);
+                Navigator.of(context).pop();
+                flag = 1;
+              });
+            },
+            child: Text('Done'))
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     print("HEX:" + HEXinput);
@@ -181,7 +219,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext ctx) => _pickColor(ctx));
+            },
             icon: InvertColors(
               child: Icon(Icons.album_sharp),
             ),
