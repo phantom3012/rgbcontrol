@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final _formKey = GlobalKey<FormState>();
     return AlertDialog(
       title: Text(
-        'Enter HEX code (ignore #)',
+        'Enter HEX code',
         textAlign: TextAlign.center,
       ),
       content: Container(
