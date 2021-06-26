@@ -166,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
         _redSlider.toInt(), _greenSlider.toInt(), _blueSlider.toInt(), 1);
     Color pickerColor = finalColor;
     return AlertDialog(
-      title: Text('Pick a color!'),
+      title: Text('Pick a color!',textAlign: TextAlign.center),
       content: SingleChildScrollView(
         child: ColorPicker(
           pickerColor: pickerColor,
