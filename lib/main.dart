@@ -35,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double _redSlider = 0;
   double _blueSlider = 0;
   double _greenSlider = 0;
+  int flag = 0;
 
   // ignore: non_constant_identifier_names
   String HEXinput = "000000";
@@ -128,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         if (_formKey.currentState!.validate()) {
                           form!.save();
                           Navigator.pop(context);
+                          flag = 1;
                         }
                       },
                       child: Text('Ok'))
@@ -142,9 +144,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("HEX:" + HEXinput);
+    print(
+        "R: ${int.parse(HEXinput.substring(0, 2), radix: 16)} G: ${int.parse(HEXinput.substring(2, 4), radix: 16)} B: ${int.parse(HEXinput.substring(4), radix: 16)}");
+    if (flag == 1) {
+      _redSlider = int.parse(HEXinput.substring(0, 2), radix: 16).toDouble();
+      _greenSlider = int.parse(HEXinput.substring(2, 4), radix: 16).toDouble();
+      _blueSlider = int.parse(HEXinput.substring(4), radix: 16).toDouble();
+    }
     Color finalColor = Color.fromRGBO(
         _redSlider.toInt(), _greenSlider.toInt(), _blueSlider.toInt(), 1);
-    print("HEX:" + HEXinput);
     return Scaffold(
       appBar: AppBar(
         title: InvertColors(
@@ -273,6 +282,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onChanged: (double value) {
                     setState(() {
                       _redSlider = value;
+                      flag = 0;
                     });
                   }),
             ),
@@ -304,6 +314,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onChanged: (double value) {
                     setState(() {
                       _greenSlider = value;
+                      flag = 0;
                     });
                   }),
             ),
@@ -335,6 +346,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onChanged: (double value) {
                     setState(() {
                       _blueSlider = value;
+                      flag = 0;
                     });
                   }),
             ),
