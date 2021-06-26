@@ -228,7 +228,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 50,
                 width: 200,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _redSlider = 0;
+                      _greenSlider = 0;
+                      _blueSlider = 0;
+                    });
+                  },
                   child: InvertColors(
                       child: Text(
                     'Reset',
