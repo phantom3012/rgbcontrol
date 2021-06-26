@@ -179,6 +179,15 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(color: finalColor),
           ),
         ),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: InvertColors(
+              child: Icon(Icons.album_sharp),
+            ),
+            color: finalColor,
+          ),
+        ],
         backgroundColor: finalColor,
       ),
       body: SingleChildScrollView(
