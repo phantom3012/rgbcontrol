@@ -4,9 +4,6 @@ import 'package:string_validator/string_validator.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  // SystemChrome.setPreferredOrientations(
-  //         [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp])
-  //     .then((_) => runApp(MyApp()));
   runApp(MyApp());
 }
 
@@ -314,10 +311,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SliderTheme(
                 data: SliderThemeData(
-                  thumbColor: Colors.red,
-                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
-                  activeTrackColor: Colors.red,
-                ),
+                    thumbColor: Colors.red,
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
+                    activeTrackColor: Colors.red,
+                    inactiveTrackColor: Colors.red[100]),
                 child: Slider(
                     value: _redSlider,
                     min: 0,
@@ -346,10 +343,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SliderTheme(
                 data: SliderThemeData(
-                  thumbColor: Colors.green,
-                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
-                  activeTrackColor: Colors.green,
-                ),
+                    thumbColor: Colors.green,
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
+                    activeTrackColor: Colors.green,
+                    inactiveTrackColor: Colors.green[100]),
                 child: Slider(
                     value: _greenSlider,
                     min: 0,
@@ -378,10 +375,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SliderTheme(
                 data: SliderThemeData(
-                  thumbColor: Colors.blue,
-                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
-                  activeTrackColor: Colors.blue,
-                ),
+                    thumbColor: Colors.blue,
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20),
+                    activeTrackColor: Colors.blue,
+                    inactiveTrackColor: Colors.blue[100]),
                 child: Slider(
                     value: _blueSlider,
                     min: 0,
@@ -400,10 +397,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Container(
                 height: 200,
-                width: 200,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: finalColor,
-                  shape: BoxShape.circle,
+                  shape: BoxShape.rectangle,
                   border: Border.all(
                     color: ((_redSlider >= 235 && _redSlider <= 255) &&
                             (_blueSlider >= 235 && _blueSlider <= 255) &&
