@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: InvertColors(
               child: Text(
             'Copy to clipboard',
-            style: TextStyle(color: finalColor),
+            style: TextStyle(color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
           )),
           style: ElevatedButton.styleFrom(
             elevation: 10,
@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: InvertColors(
                 child: Text(
               'Okay',
-              style: TextStyle(color: finalColor),
+              style: TextStyle(color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
             )),
             style: ElevatedButton.styleFrom(
               elevation: 10,
@@ -166,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
         _redSlider.toInt(), _greenSlider.toInt(), _blueSlider.toInt(), 1);
     Color pickerColor = finalColor;
     return AlertDialog(
-      title: Text('Pick a color!',textAlign: TextAlign.center),
+      title: Text('Pick a color!', textAlign: TextAlign.center),
       content: SingleChildScrollView(
         child: ColorPicker(
           pickerColor: pickerColor,
@@ -214,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: InvertColors(
           child: Text(
             widget.title,
-            style: TextStyle(color: finalColor),
+            style: TextStyle(color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
           ),
         ),
         actions: <Widget>[
@@ -227,8 +227,7 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: InvertColors(
               child: Icon(Icons.album_sharp),
             ),
-            color: finalColor,
-          ),
+            color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
         ],
         backgroundColor: finalColor,
       ),
@@ -281,12 +280,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       _redSlider = 0;
                       _greenSlider = 0;
                       _blueSlider = 0;
+                      HEXinput = "000000";
                     });
                   },
                   child: InvertColors(
                       child: Text(
                     'Reset',
-                    style: TextStyle(fontSize: 20, color: finalColor),
+                    style: TextStyle(fontSize: 20, color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
                   )),
                   style: ElevatedButton.styleFrom(
                       elevation: 10, primary: finalColor),
@@ -307,7 +307,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: InvertColors(
                     child: Text(
                       'Get HEX',
-                      style: TextStyle(fontSize: 20, color: finalColor),
+                      style: TextStyle(fontSize: 20, color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -335,7 +335,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: InvertColors(
                       child: Text(
                         'Set HEX',
-                        style: TextStyle(fontSize: 20, color: finalColor),
+                        style: TextStyle(fontSize: 20, color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
