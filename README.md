@@ -1,4 +1,4 @@
-#RGB LED control 
+## RGB LED control 
 
 Controlling the light in your room from a thousand miles away had never been simpler
 
