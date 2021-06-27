@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:invert_colors/invert_colors.dart';
 import 'package:string_validator/string_validator.dart';
@@ -49,7 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
   double _blueSlider = 0;
   double _greenSlider = 0;
   int flag = 0;
-
+  DatabaseReference _rref = FirebaseDatabase.instance.reference().child("Red");
+  DatabaseReference _gref =
+      FirebaseDatabase.instance.reference().child("Green");
+  DatabaseReference _bref = FirebaseDatabase.instance.reference().child("Blue");
   // ignore: non_constant_identifier_names
   String HEXinput = "000000";
   Color pickedcolor = Color(0x000000);
@@ -152,7 +156,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   TextFormField(
                     validator: (value) {
-                      if (!isHexColor(value.toString())||value.toString().length<6) {
+                      if (!isHexColor(value.toString()) ||
+                          value.toString().length < 6) {
                         return 'Enter valid HEX!';
                       }
                     },
@@ -233,6 +238,10 @@ class _MyHomePageState extends State<MyHomePage> {
       _greenSlider = int.parse(HEXinput.substring(2, 4), radix: 16).toDouble();
       _blueSlider = int.parse(HEXinput.substring(4), radix: 16).toDouble();
     }
+    _rref.set(_redSlider);
+    _gref.set(_greenSlider);
+    _bref.set(_blueSlider);
+
     Color finalColor = Color.fromRGBO(
         _redSlider.toInt(), _greenSlider.toInt(), _blueSlider.toInt(), 1);
     return Scaffold(
