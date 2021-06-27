@@ -1,8 +1,8 @@
-## RGB LED control 
+# RGB LED control 
 
 Controlling the light in your room from a thousand miles away had never been simpler
 
-# The Basics
+## The Basics
 
 Yeah, the title was catchy, but I'll be honest: right now this code can only control a basic RGB LED through a flutter app. Before we move ahead on the actual working, more about the app:
 
