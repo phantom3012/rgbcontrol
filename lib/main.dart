@@ -1,24 +1,39 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:invert_colors/invert_colors.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  final Future<FirebaseApp> _firebaseApp = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'RGB Control',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'RGB Control'),
-    );
+        title: 'RGB Control',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: FutureBuilder(
+          future: _firebaseApp,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('Something went wrong!\n${snapshot.error}');
+            } else if (snapshot.hasData) {
+              return MyHomePage(title: 'RGB Control');
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ));
   }
 }
 
@@ -84,7 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
           child: InvertColors(
               child: Text(
             'Copy to clipboard',
-            style: TextStyle(color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
+            style: TextStyle(
+                color: ((_redSlider >= 110 && _redSlider <= 145) &&
+                        (_greenSlider >= 110 && _greenSlider <= 145) &&
+                        (_blueSlider >= 110 && _blueSlider <= 145))
+                    ? Colors.black
+                    : (finalColor)),
           )),
           style: ElevatedButton.styleFrom(
             elevation: 10,
@@ -96,7 +116,12 @@ class _MyHomePageState extends State<MyHomePage> {
             child: InvertColors(
                 child: Text(
               'Okay',
-              style: TextStyle(color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
+              style: TextStyle(
+                  color: ((_redSlider >= 110 && _redSlider <= 145) &&
+                          (_greenSlider >= 110 && _greenSlider <= 145) &&
+                          (_blueSlider >= 110 && _blueSlider <= 145))
+                      ? Colors.black
+                      : (finalColor)),
             )),
             style: ElevatedButton.styleFrom(
               elevation: 10,
@@ -110,8 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
     final _formKey = GlobalKey<FormState>();
     return AlertDialog(
       title: Text(
-        'Enter HEX code',
+        'Enter HEX code\n(6 chars excluding #)',
         textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 18),
       ),
       content: Container(
         height: 200,
@@ -126,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   TextFormField(
                     validator: (value) {
-                      if (!isHexColor(value.toString())) {
+                      if (!isHexColor(value.toString())||value.toString().length<6) {
                         return 'Enter valid HEX!';
                       }
                     },
@@ -214,20 +240,29 @@ class _MyHomePageState extends State<MyHomePage> {
         title: InvertColors(
           child: Text(
             widget.title,
-            style: TextStyle(color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
+            style: TextStyle(
+                color: ((_redSlider >= 110 && _redSlider <= 145) &&
+                        (_greenSlider >= 110 && _greenSlider <= 145) &&
+                        (_blueSlider >= 110 && _blueSlider <= 145))
+                    ? Colors.black
+                    : (finalColor)),
           ),
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext ctx) => _pickColor(ctx));
-            },
-            icon: InvertColors(
-              child: Icon(Icons.album_sharp),
-            ),
-            color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext ctx) => _pickColor(ctx));
+              },
+              icon: InvertColors(
+                child: Icon(Icons.album_sharp),
+              ),
+              color: ((_redSlider >= 110 && _redSlider <= 145) &&
+                      (_greenSlider >= 110 && _greenSlider <= 145) &&
+                      (_blueSlider >= 110 && _blueSlider <= 145))
+                  ? Colors.black
+                  : (finalColor)),
         ],
         backgroundColor: finalColor,
       ),
@@ -286,7 +321,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: InvertColors(
                       child: Text(
                     'Reset',
-                    style: TextStyle(fontSize: 20, color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: ((_redSlider >= 110 && _redSlider <= 145) &&
+                                (_greenSlider >= 110 && _greenSlider <= 145) &&
+                                (_blueSlider >= 110 && _blueSlider <= 145))
+                            ? Colors.black
+                            : (finalColor)),
                   )),
                   style: ElevatedButton.styleFrom(
                       elevation: 10, primary: finalColor),
@@ -307,7 +348,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: InvertColors(
                     child: Text(
                       'Get HEX',
-                      style: TextStyle(fontSize: 20, color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: ((_redSlider >= 110 && _redSlider <= 145) &&
+                                  (_greenSlider >= 110 &&
+                                      _greenSlider <= 145) &&
+                                  (_blueSlider >= 110 && _blueSlider <= 145))
+                              ? Colors.black
+                              : (finalColor)),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -335,7 +383,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: InvertColors(
                       child: Text(
                         'Set HEX',
-                        style: TextStyle(fontSize: 20, color: ((_redSlider>=110&&_redSlider<=145)&&(_greenSlider>=110&&_greenSlider<=145)&&(_blueSlider>=110&&_blueSlider<=145))?Colors.black:(finalColor)),
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: ((_redSlider >= 110 && _redSlider <= 145) &&
+                                    (_greenSlider >= 110 &&
+                                        _greenSlider <= 145) &&
+                                    (_blueSlider >= 110 && _blueSlider <= 145))
+                                ? Colors.black
+                                : (finalColor)),
                       ),
                     ),
                     style: ElevatedButton.styleFrom(

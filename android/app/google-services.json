@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "38803863543",
+    "project_id": "rgb-control-317ba",
+    "storage_bucket": "rgb-control-317ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38803863543:android:cb77dd112a74d9e6b4a0f2",
+        "android_client_info": {
+          "package_name": "com.example.rgbcontrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "38803863543-7vs3bd4pckco89narccdrlrp1sc1rs01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmNq3df_-uvlQ2hx6AJ5ZTt6eUimZdmK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "38803863543-7vs3bd4pckco89narccdrlrp1sc1rs01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
