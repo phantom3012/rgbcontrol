@@ -46,7 +46,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool switchState = true;
   double _redSlider = 0;
   double _blueSlider = 0;
   double _greenSlider = 0;
@@ -235,9 +234,21 @@ class _MyHomePageState extends State<MyHomePage> {
       content: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Text('Option1'),
-            Text('Option2'),
-            Text('Option3'),
+            ElevatedButton(
+                onPressed: () {
+                  for (int i = 0; i <= 255; i++) {
+                    _rref.set(i);
+                    _gref.set(i);
+                    _bref.set(i);
+                    Future.delayed(Duration(milliseconds: 500));
+                  }
+                  _rref.set(_redSlider);
+                  _gref.set(_greenSlider);
+                  _bref.set(_blueSlider);
+                  Navigator.pop(context);
+                },
+                child: Text('Fade')),
+            ElevatedButton(onPressed: () {}, child: Text('Blink')),
           ],
         ),
       ),
@@ -274,20 +285,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         actions: <Widget>[
-          InvertColors(
-            child: TextButton(
-                onPressed: () {
-                  setState(() {
-                    switchState = !switchState;
-                  });
-                },
-                child: (switchState)
-                    ? Text(
-                        'On',
-                        style: TextStyle(color: finalColor),
-                      )
-                    : Text('Off', style: TextStyle(color: finalColor))),
-          ),
           IconButton(
               onPressed: () {
                 showDialog(
