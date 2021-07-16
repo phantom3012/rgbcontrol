@@ -46,6 +46,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool switchState = true;
   double _redSlider = 0;
   double _blueSlider = 0;
   double _greenSlider = 0;
@@ -228,6 +229,21 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _miscOptions(BuildContext context) {
+    return AlertDialog(
+      title: Text('Options', textAlign: TextAlign.center),
+      content: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Text('Option1'),
+            Text('Option2'),
+            Text('Option3'),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     print("HEX:" + HEXinput);
@@ -258,6 +274,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         actions: <Widget>[
+          InvertColors(
+            child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    switchState = !switchState;
+                  });
+                },
+                child: (switchState)
+                    ? Text(
+                        'On',
+                        style: TextStyle(color: finalColor),
+                      )
+                    : Text('Off', style: TextStyle(color: finalColor))),
+          ),
           IconButton(
               onPressed: () {
                 showDialog(
@@ -272,6 +302,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       (_blueSlider >= 110 && _blueSlider <= 145))
                   ? Colors.black
                   : (finalColor)),
+          IconButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext ctx) => _miscOptions(ctx));
+            },
+            icon: InvertColors(child: Icon(Icons.app_registration_rounded)),
+            color: ((_redSlider >= 110 && _redSlider <= 145) &&
+                    (_greenSlider >= 110 && _greenSlider <= 145) &&
+                    (_blueSlider >= 110 && _blueSlider <= 145))
+                ? Colors.black
+                : (finalColor),
+          ),
         ],
         backgroundColor: finalColor,
       ),
