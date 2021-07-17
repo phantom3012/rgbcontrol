@@ -6,6 +6,8 @@ import 'package:string_validator/string_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+import 'dart:math';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
@@ -229,26 +231,103 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _miscOptions(BuildContext context) {
+    Color finalColor = Color.fromRGBO(
+        _redSlider.toInt(), _greenSlider.toInt(), _blueSlider.toInt(), 1);
     return AlertDialog(
       title: Text('Options', textAlign: TextAlign.center),
       content: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             ElevatedButton(
-                onPressed: () {
-                  for (int i = 0; i <= 255; i++) {
-                    _rref.set(i);
-                    _gref.set(i);
-                    _bref.set(i);
-                    Future.delayed(Duration(milliseconds: 500));
+              onPressed: () {
+                final _random = new Random();
+                int count = 0;
+                int min = 0;
+                int max = 255;
+                while (count <= 25) {
+                  int rndR = min + _random.nextInt(max - min);
+                  int rndG = min + _random.nextInt(max - min);
+                  int rndB = min + _random.nextInt(max - min);
+                  _bref.set(rndB);
+                  _gref.set(rndG);
+                  for (int j = rndR; j <= max; j++) {
+                    _rref.set(j);
+                    Future.delayed(Duration(microseconds: 500));
                   }
-                  _rref.set(_redSlider);
-                  _gref.set(_greenSlider);
-                  _bref.set(_blueSlider);
-                  Navigator.pop(context);
-                },
-                child: Text('Fade')),
-            ElevatedButton(onPressed: () {}, child: Text('Blink')),
+                  _rref.set(rndR);
+                  _bref.set(rndB);
+                  for (int j = rndG; j <= max; j++) {
+                    _gref.set(j);
+                    Future.delayed(Duration(microseconds: 500));
+                  }
+                  _rref.set(rndR);
+                  _gref.set(rndG);
+                  for (int j = rndB; j <= max; j++) {
+                    _bref.set(j);
+                    Future.delayed(Duration(microseconds: 500));
+                  }
+                  count++;
+                }
+                Future.delayed(Duration(seconds: 2));
+                _rref.set(_redSlider);
+                _gref.set(_greenSlider);
+                _bref.set(_blueSlider);
+
+                // for (int i = 0; i <= 255; i++) {
+                //   _rref.set(i);
+                //   _gref.set(i);
+                //   _bref.set(i);
+                //   Future.delayed(Duration(milliseconds: 500));
+                // }
+                // Future.delayed(Duration(milliseconds: 1000));
+                // for (int i = 255; i >= 0; i--) {
+                //   _rref.set(i);
+                //   _gref.set(i);
+                //   _bref.set(i);
+                // }
+                // Future.delayed(Duration(milliseconds: 250));
+                // _rref.set(_redSlider);
+                // _gref.set(_greenSlider);
+                // _bref.set(_blueSlider);
+                // Navigator.pop(context);
+              },
+              child: InvertColors(
+                child: Text(
+                  'Fade',
+                  style: TextStyle(
+                      color: ((_redSlider >= 110 && _redSlider <= 145) &&
+                              (_greenSlider >= 110 && _greenSlider <= 145) &&
+                              (_blueSlider >= 110 && _blueSlider <= 145))
+                          ? Colors.black
+                          : (finalColor)),
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                elevation: 10,
+                primary: finalColor,
+                onPrimary:
+                    (finalColor == Colors.white) ? Colors.black : Colors.white,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: InvertColors(
+                  child: Text(
+                'Blink',
+                style: TextStyle(
+                    color: ((_redSlider >= 110 && _redSlider <= 145) &&
+                            (_greenSlider >= 110 && _greenSlider <= 145) &&
+                            (_blueSlider >= 110 && _blueSlider <= 145))
+                        ? Colors.black
+                        : (finalColor)),
+              )),
+              style: ElevatedButton.styleFrom(
+                elevation: 10,
+                primary: finalColor,
+                onPrimary:
+                    (finalColor == Colors.white) ? Colors.black : Colors.white,
+              ),
+            ),
           ],
         ),
       ),
