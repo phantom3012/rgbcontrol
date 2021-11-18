@@ -8,7 +8,7 @@ This code can control a basic RGB LED through a flutter app. Before we move ahea
 
 ## The App
 The app is a (not so quite) simple flutter app that allows you to select the precise color you need through multiple ways: RGB sliders, HEX input and a free colour picker. 
-The selected colour is interconverted between HEX values and RGB values just to display to the user, but ultimately, the R,G and B values are sent separately to a Firebase Realtime Database
+The selected colour is interconverted between HEX values and RGB values just to display to the user, but ultimately, the R,G and B values are sent separately to a Firebase RTDB
 <img src="https://user-images.githubusercontent.com/78027544/142406477-fd09d536-315a-4aa1-b300-5588b7eb2781.jpg" width="50%" height="50%">
 <img src="https://user-images.githubusercontent.com/78027544/142406499-6507093c-501a-4488-a420-61b832dda95b.jpg" width="50%" height="50%">
 ![rtdb](https://user-images.githubusercontent.com/78027544/142406822-838960b0-c7a2-49b3-8807-3d809f018955.jpg)
